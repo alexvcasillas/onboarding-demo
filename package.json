@@ -4,7 +4,7 @@
   "private": true,
   "repository": "https://github.com/alexvcasillas/onboarding-demo.git",
   "dependencies": {
-    "@reactive-labs/onboarding": "^0.0.1-alpha.3",
+    "@reactive-labs/onboarding": "0.0.1-alpha.11",
     "node-sass": "^4.11.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.4",
