@@ -2,7 +2,11 @@
   "name": "onboarding",
   "version": "0.1.0",
   "private": true,
+  "repository": "https://github.com/alexvcasillas/onboarding-demo.git",
   "dependencies": {
+    "@reactive-labs/onboarding": "^0.0.1-alpha.3",
+    "node-sass": "^4.11.0",
+    "prop-types": "^15.7.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-scripts": "2.1.8"
