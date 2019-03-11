@@ -107,18 +107,7 @@ class App extends React.Component {
           {({ nextStep, validStep }) => (
             <Container>
               <StepHeader>What's your personal identification number (ES)?</StepHeader>
-              <Field
-                name="dni"
-                type="text"
-                validations={[
-                  {
-                    name: 'dni-length',
-                    on: 'change',
-                    validator: dni => dni.length === 9,
-                    errorMessage: `A DNI must have 9 characters`,
-                  },
-                ]}
-              >
+              <Field name="dni" type="text">
                 {({ type, value, onChange, valid, error }) => (
                   <InputText
                     type={type}

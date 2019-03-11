@@ -18,6 +18,7 @@
     background-color 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0ms,
     color 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0ms;
   cursor: pointer;
+  user-select: none;
 
   &:hover {
     border-color: #343a40;
@@ -29,5 +30,6 @@
     background-color: #e9ecef;
     color: #adb5bd;
     border-color: #e9ecef;
+    pointer-events: none;
   }
 }
