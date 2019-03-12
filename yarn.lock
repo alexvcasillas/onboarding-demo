@@ -865,10 +865,10 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@reactive-labs/onboarding@0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@reactive-labs/onboarding/-/onboarding-0.1.0.tgz#cca3b0ef92b80487864d3e57e512e1d7ddcb8f3e"
-  integrity sha512-2QsMzW9G8WIBcAE3JolG1j7hiaYtzyZNTJlwxONNaa0lkoG8KB2jfhSMAqOSipFeADgm37niBj1uRdWHTseZWQ==
+"@reactive-labs/onboarding@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@reactive-labs/onboarding/-/onboarding-0.2.0.tgz#01825b51d562aebb2331474291de8d08aa40f60a"
+  integrity sha512-YTFktPfdvGh3huqjVMp8yLX0PSLc98SkRLyXe8XRSc7xRVnsfs5U6SoM5KNENktQz4hTl3l8g0/1G77v6/3Qlw==
   dependencies:
     react "^16.8.4"
 

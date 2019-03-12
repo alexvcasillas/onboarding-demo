@@ -15,8 +15,15 @@ class InputText extends React.Component {
     onChange(e.target.value);
   };
 
+  handleOnEnter = e => {
+    const { onEnter } = this.props;
+    if (e.which === 13 && typeof onEnter !== 'undefined') {
+      onEnter();
+    }
+  };
+
   render() {
-    const { type, placeholder, onKeyPress, onFocus, onBlur, error, valid } = this.props;
+    const { type, placeholder, onFocus, onBlur, error, valid } = this.props;
     const { value } = this.state;
     return (
       <div className={styles.c_input} data-has-content={value !== ''} data-is-valid={valid}>
@@ -26,7 +33,7 @@ class InputText extends React.Component {
           onChange={this.handleOnChange}
           onFocus={onFocus}
           onBlur={onBlur}
-          onKeyPress={e => onKeyPress(e)}
+          onKeyPress={this.handleOnEnter}
         />
         <label>{!valid ? error : placeholder}</label>
       </div>

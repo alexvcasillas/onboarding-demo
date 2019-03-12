@@ -11,26 +11,17 @@ import StepHeader from './components/step-header/step-header.component';
 import { emailValidator } from './utils';
 
 class App extends React.Component {
-  state = { onboardingComplete: false };
-
-  onOnboardingComplete = () => {
-    this.setState({ onboardingComplete: true });
-  };
-
   render() {
-    const { onboardingComplete } = this.state;
     return (
-      <Onboarding finished={onboardingComplete}>
-        {!onboardingComplete && (
-          <Info>
-            {({ currentStep, numberOfSteps, prevStep }) => (
-              <>
-                <Progress currentStep={currentStep} numberOfSteps={numberOfSteps} />
-                <Header back={currentStep > 1 && prevStep} />
-              </>
-            )}
-          </Info>
-        )}
+      <Onboarding>
+        <Info>
+          {({ currentStep, numberOfSteps, prevStep }) => (
+            <>
+              <Progress currentStep={currentStep} numberOfSteps={numberOfSteps} />
+              <Header back={currentStep > 1 && prevStep} />
+            </>
+          )}
+        </Info>
         <Step name="full-name">
           {({ nextStep, validStep }) => (
             <Container>
@@ -51,9 +42,14 @@ class App extends React.Component {
                     validator: value => value.length > 3,
                     errorMessage: `I bet that your name has more than 3 characters`,
                   },
+                  {
+                    name: 'on-enter',
+                    on: 'enter',
+                    validations: ['not-empty', 'minimum-characters'],
+                  },
                 ]}
               >
-                {({ type, value, onChange, onFocus, onBlur, valid, error }) => (
+                {({ type, value, onChange, onFocus, onBlur, onEnter, valid, error }) => (
                   <InputText
                     type={type}
                     placeholder="Name"
@@ -61,14 +57,14 @@ class App extends React.Component {
                     onChange={onChange}
                     onFocus={onFocus}
                     onBlur={onBlur}
-                    onKeyPress={e => e.which === 13 && validStep && nextStep()}
+                    onEnter={() => onEnter(nextStep)}
                     valid={valid}
                     error={error}
                   />
                 )}
               </Field>
               <Field name="last-name" type="text">
-                {({ type, value, onChange, onFocus, onBlur, valid, error }) => (
+                {({ type, value, onChange, onFocus, onBlur, onEnter, valid, error }) => (
                   <InputText
                     type={type}
                     placeholder="Last name"
@@ -76,7 +72,7 @@ class App extends React.Component {
                     onChange={onChange}
                     onFocus={onFocus}
                     onBlur={onBlur}
-                    onKeyPress={e => e.which === 13 && validStep && nextStep()}
+                    onEnter={() => onEnter(nextStep)}
                     valid={valid}
                     error={error}
                   />
@@ -107,16 +103,33 @@ class App extends React.Component {
           {({ nextStep, validStep }) => (
             <Container>
               <StepHeader>What's your personal identification number (ES)?</StepHeader>
-              <Field name="dni" type="text">
-                {({ type, value, onChange, valid, error }) => (
+              <Field
+                name="dni"
+                type="text"
+                validations={[
+                  {
+                    name: 'dni-length',
+                    on: 'blur',
+                    validator: value => value.length === 9,
+                    errorMessage: 'A DNI must have 9 characters length',
+                  },
+                  {
+                    name: 'on-enter',
+                    on: 'enter',
+                    validations: ['dni-length'],
+                  },
+                ]}
+              >
+                {({ type, value, onChange, valid, onBlur, onEnter, error }) => (
                   <InputText
                     type={type}
                     placeholder="DNI"
                     value={value}
                     onChange={onChange}
+                    onBlur={onBlur}
+                    onEnter={() => onEnter(nextStep)}
                     valid={valid}
                     error={error}
-                    onKeyPress={e => e.which === 13 && validStep && nextStep()}
                   />
                 )}
               </Field>
@@ -127,7 +140,7 @@ class App extends React.Component {
           )}
         </Step>
         <Step name="aditional-details">
-          {({ validStep }) => (
+          {({ validStep, finish }) => (
             <Container>
               <StepHeader>Mind to share your email with us?</StepHeader>
               <Field
@@ -140,22 +153,27 @@ class App extends React.Component {
                     validator: email => emailValidator(email),
                     errorMessage: 'You have to write a valid email',
                   },
+                  {
+                    name: 'on-enter',
+                    on: 'enter',
+                    validations: ['is-email'],
+                  },
                 ]}
               >
-                {({ type, value, onChange, onBlur, valid, error }) => (
+                {({ type, value, onChange, onBlur, onEnter, valid, error }) => (
                   <InputText
                     type={type}
                     placeholder="Email"
                     value={value}
                     onChange={onChange}
                     onBlur={onBlur}
+                    onEnter={() => onEnter(finish)}
                     valid={valid}
                     error={error}
-                    onKeyPress={e => e.which === 13 && validStep && this.onOnboardingComplete()}
                   />
                 )}
               </Field>
-              <Button disabled={!validStep} onClick={validStep ? this.onOnboardingComplete : () => {}}>
+              <Button disabled={!validStep} onClick={validStep ? finish : undefined}>
                 Complete!
               </Button>
             </Container>
